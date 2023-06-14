@@ -9,6 +9,7 @@ using UnityEditor.PackageManager;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.IO;
 
 public class AppsflyerModule
 {
@@ -107,6 +108,30 @@ public class AppsflyerModule
         mono.StartCoroutine(SendUnityPostReq(req, REQ_TYPE));
     }
 
+    public bool IsInstallOlderThanDate(string date)
+    {
+        bool isInstallOlder = false;
+
+        string dataPath = Application.dataPath;
+        // Debug.Log("dataPath: " + dataPath);
+        DateTime createdTime = Directory.GetCreationTime(dataPath);
+        // Debug.Log("createdTime: " + createdTime);
+        DateTime checkDate = DateTime.Parse(date);
+        // Debug.Log("checkDate: " + checkDate);
+
+        if (createdTime != null)
+        {
+            isInstallOlder = DateTime.Compare(createdTime, checkDate) < 0;
+        }
+
+        return isInstallOlder;
+    }
+
+    public string GetAppsFlyerUID()
+    {
+        return this.af_device_id;
+    }
+
     // send post request with Unity HTTP Client
     private IEnumerator SendUnityPostReq(RequestData req, AppsflyerRequestType REQ_TYPE)
     {
@@ -145,11 +170,6 @@ public class AppsflyerModule
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
 
-        var pack = Client.List();
-        while (!pack.IsCompleted)
-            yield return null;
-        var eosPack = pack.Result.FirstOrDefault(q => q.name == "com.playeveryware.eos");
-
         // set the request content type
         uwr.SetRequestHeader("Content-Type", "application/json");
         // set the authorization
@@ -157,7 +177,6 @@ public class AppsflyerModule
         uwr.SetRequestHeader(
             "user-agent",
             "UnityGamesLaucnher/"
-                + eosPack.version
                 + " ("
                 + SystemInfo.operatingSystem.Replace("(", "").Replace(")", "")
                 + ")"

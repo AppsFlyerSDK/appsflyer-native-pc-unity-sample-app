@@ -6,9 +6,12 @@ using System.Collections.Generic;
 
 public class AppsflyerScript : MonoBehaviour
 {
+    public string devkey;
+    public string appid;
+
     void Start()
     {
-        AppsflyerModule afm = new AppsflyerModule("DEV_KEY", "APP_ID", this);
+        AppsflyerModule afm = new AppsflyerModule(devkey, appid, this);
         afm.Start();
 
         // set event name
@@ -21,11 +24,14 @@ public class AppsflyerScript : MonoBehaviour
         // send logEvent request
         afm.LogEvent(event_name, event_parameters);
 
-        //Get the path of the Game data folder
-        string m_Path = Application.dataPath;
+        // the creation date in this example is "2023-03-23T08:30:00+00:00"
+        bool newerDate = afm.IsInstallOlderThanDate("2023-06-13T10:00:00+00:00");
+        bool olderDate = afm.IsInstallOlderThanDate("2023-02-11T10:00:00+00:00");
 
-        //Output the Game data path to the console
-        Debug.Log("dataPath : " + m_Path);
+        // will return true
+        Debug.Log("newerDate:" + (newerDate ? "true" : "false"));
+        // will return false
+        Debug.Log("olderDate:" + (olderDate ? "true" : "false"));
     }
 
     private void Update() { }

@@ -28,13 +28,13 @@ This method receives your API key, app ID and parent MonoBehaviour and initializ
 
 **Method signature**
 
-```
+```c#
 AppsflyerModule(string appid, string devkey, MonoBehaviour mono)
 ```
 
 **Usage**:
 
-```
+```c#
 AppsflyerModule afm = new AppsflyerModule("DEV_KEY", "APP_ID", this);
 ```
 
@@ -49,13 +49,13 @@ This method sends first open/session requests to AppsFlyer.
 
 **Method signature**
 
-```
+```c#
 void Start(bool skipFirst = false)
 ```
 
 **Usage**:
 
-```
+```c#
 // without the flag
 afm.Start();
 
@@ -76,7 +76,7 @@ void LogEvent(string event_name, Dictionary<string, object> event_parameters)
 
 **Usage**:
 
-```
+```c#
 // set event name
 string event_name = "af_purchase";
 // set event values
@@ -86,6 +86,47 @@ event_parameters.Add("af_price", 6.66);
 event_parameters.Add("af_revenue", 12.12);
 // send logEvent request
 afm.LogEvent(event_name, event_parameters);
+```
+
+### IsInstallOlderThanDate
+
+This method receives a date string and returns true if the game folder creation date is older than the date string. The date string format is: "2023-03-01T23:12:34+00:00"
+
+**Method signature**
+
+```c#
+bool IsInstallOlderThanDate(string datestring)
+```
+
+**Usage**:
+
+```c#
+// the creation date in this example is "2023-03-23T08:30:00+00:00"
+bool newerDate = afm.IsInstallOlderThanDate("2023-06-13T10:00:00+00:00");
+bool olderDate = afm.IsInstallOlderThanDate("2023-02-11T10:00:00+00:00");
+
+// will return true
+Debug.Log("newerDate:" + (newerDate ? "true" : "false"));
+// will return false
+Debug.Log("olderDate:" + (olderDate ? "true" : "false"));
+```
+
+### GetAppsFlyerUID
+
+Get AppsFlyer's unique device ID. The SDK generates an AppsFlyer unique device ID upon app installation. When the SDK is started, this ID is recorded as the ID of the first app install.
+
+**Method signature**
+
+```c#
+void GetAppsFlyerUID()
+```
+
+**Usage**:
+
+```c#
+AppsflyerModule afm = new AppsflyerModule(DEV_KEY, EPIC_APP_ID, this);
+afm.Start();
+string af_uid = afm.GetAppsFlyerUID();
 ```
 
 ## Running the sample app
@@ -106,7 +147,7 @@ afm.LogEvent(event_name, event_parameters);
 2. Use the sample code in `Assets/Scenes/AppsflyerScript.cs` and update it with your `DEV_KEY` and `APP_ID`.
 3. Initialize the SDK.
 
-```
+```c#
 AppsflyerModule afm = new AppsflyerModule("DEV_KEY", "APP_ID", this);
 ```
 
