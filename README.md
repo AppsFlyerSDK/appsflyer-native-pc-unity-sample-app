@@ -143,8 +143,8 @@ string af_uid = afm.GetAppsFlyerUID();
 
 ### Setup
 
-1. Add the script from `Assets/Scenes/AppsflyerModule.cs` to your app.
-2. Use the sample code in `Assets/Scenes/AppsflyerScript.cs` and update it with your `DEV_KEY` and `APP_ID`.
+1. Add the script from `Assets/AppsflyerModule.cs` to your app.
+2. Use the sample code in `Assets/AppsflyerScript.cs` and update it with your `DEV_KEY` and `APP_ID`.
 3. Initialize the SDK.
 
 ```c#
