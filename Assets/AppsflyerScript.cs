@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 public class AppsflyerScript : MonoBehaviour
 {
-    public string devkey;
-    public string appid;
+    public string DEV_KEY;
+    public string APP_ID;
 
     void Start()
     {
-        AppsflyerModule afm = new AppsflyerModule(devkey, appid, this);
+        AppsflyerModule afm = new AppsflyerModule(DEV_KEY, APP_ID, this);
         afm.Start();
 
         // set event name

@@ -13,20 +13,22 @@ using System.IO;
 
 public class AppsflyerModule
 {
-    public string devkey { get; }
-    public string appid { get; }
-    public int af_counter { get; set; }
-    public string af_device_id { get; }
-    public MonoBehaviour mono { get; }
+    private bool isSandbox { get; }
+    private string devkey { get; }
+    private string appid { get; }
+    private int af_counter { get; set; }
+    private string af_device_id { get; }
+    private MonoBehaviour mono { get; }
 
-    public AppsflyerModule(string devkey, string appid, MonoBehaviour mono)
+    public AppsflyerModule(string devkey, string appid, MonoBehaviour mono, bool isSandbox = false)
     {
+        this.isSandbox = isSandbox;
         this.devkey = devkey;
         this.appid = appid;
         this.mono = mono;
 
         this.af_counter = PlayerPrefs.GetInt("af_counter");
-        Debug.Log("af_counter: " + af_counter);
+        // Debug.Log("af_counter: " + af_counter);
 
         this.af_device_id = PlayerPrefs.GetString("af_device_id");
 
@@ -65,7 +67,7 @@ public class AppsflyerModule
 
         RequestData req = new RequestData
         {
-            timestamp = DateTime.Now.ToString("yyyyMMddHHmmssffff"),
+            timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString(),
             device_os_version = device_os_ver,
             device_model = SystemInfo.deviceModel,
             app_version = "1.0.0", //TODO: Insert your app version
@@ -141,7 +143,7 @@ public class AppsflyerModule
             Newtonsoft.Json.Formatting.None,
             new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }
         );
-        // Debug.Log(json);
+        Debug.Log(json);
 
         // create auth token
         string auth = HmacSha256Digest(json, devkey);
@@ -151,13 +153,20 @@ public class AppsflyerModule
         switch (REQ_TYPE)
         {
             case AppsflyerRequestType.FIRST_OPEN_REQUEST:
-                url = "https://events.appsflyer.com/v1.0/c2s/first_open/app/nativepc/" + appid;
+                url = isSandbox
+                    ? "https://sandbox-events.appsflyer.com/v1.0/c2s/first_open/app/nativepc/"
+                        + appid
+                    : "https://events.appsflyer.com/v1.0/c2s/first_open/app/nativepc/" + appid;
                 break;
             case AppsflyerRequestType.SESSION_REQUEST:
-                url = "https://events.appsflyer.com/v1.0/c2s/session/app/nativepc/" + appid;
+                url = isSandbox
+                    ? "https://sandbox-events.appsflyer.com/v1.0/c2s/session/app/nativepc/" + appid
+                    : "https://events.appsflyer.com/v1.0/c2s/session/app/nativepc/" + appid;
                 break;
             case AppsflyerRequestType.INAPP_EVENT_REQUEST:
-                url = "https://events.appsflyer.com/v1.0/c2s/inapp/app/nativepc/" + appid;
+                url = isSandbox
+                    ? "https://sandbox-events.appsflyer.com/v1.0/c2s/inapp/app/nativepc/" + appid
+                    : "https://events.appsflyer.com/v1.0/c2s/inapp/app/nativepc/" + appid;
                 break;
             default:
                 url = null;
