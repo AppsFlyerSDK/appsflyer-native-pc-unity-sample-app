@@ -116,8 +116,8 @@ Debug.Log("olderDate:" + (olderDate ? "true" : "false"));
 
 // example usage with skipFirst -
 // skipping if the install date is NOT older than the given date
-bool olderDate = afm.IsInstallOlderThanDate("2023-02-11T10:00:00+00:00");
-afm.Start(!olderDate);
+bool IsInstallOlderThanDate = afm.IsInstallOlderThanDate("2023-02-11T10:00:00+00:00");
+afm.Start(!IsInstallOlderThanDate);
 ```
 
 ### GetAppsFlyerUID
