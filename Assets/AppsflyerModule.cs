@@ -49,6 +49,23 @@ public class AppsflyerModule
         DeviceIDs[] deviceids = { deviceid };
 
         string device_os_ver = SystemInfo.operatingSystem;
+        device_os_ver = TrimDeviceOsVer(device_os_ver);
+
+        RequestData req = new RequestData
+        {
+            timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString(),
+            device_os_version = device_os_ver,
+            device_model = SystemInfo.deviceModel,
+            app_version = "1.0.0", //TODO: Insert your app version
+            device_ids = deviceids,
+            request_id = GenerateGuid(),
+            limit_ad_tracking = false
+        };
+        return req;
+    }
+
+    private static string TrimDeviceOsVer(string device_os_ver)
+    {
         if (device_os_ver.IndexOf(" (") > -1)
             device_os_ver = device_os_ver.Replace(" (", "");
         if (device_os_ver.IndexOf("(") > -1)
@@ -64,18 +81,7 @@ public class AppsflyerModule
             device_os_ver = device_os_ver.Substring(1, device_os_ver.Length - 1);
         if (device_os_ver.Length > 23)
             device_os_ver = device_os_ver.Substring(0, 23);
-
-        RequestData req = new RequestData
-        {
-            timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString(),
-            device_os_version = device_os_ver,
-            device_model = SystemInfo.deviceModel,
-            app_version = "1.0.0", //TODO: Insert your app version
-            device_ids = deviceids,
-            request_id = GenerateGuid(),
-            limit_ad_tracking = false
-        };
-        return req;
+        return device_os_ver;
     }
 
     // report first open event to AppsFlyer (or session if counter > 2)
@@ -185,7 +191,7 @@ public class AppsflyerModule
         uwr.SetRequestHeader("Authorization", auth);
         uwr.SetRequestHeader(
             "user-agent",
-            "UnityGamesLaucnher/"
+            "UnityGamesLauncher/"
                 + " ("
                 + SystemInfo.operatingSystem.Replace("(", "").Replace(")", "")
                 + ")"
