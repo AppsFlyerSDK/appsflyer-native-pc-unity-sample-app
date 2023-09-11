@@ -8,11 +8,15 @@ public class AppsflyerScript : MonoBehaviour
 {
     public string DEV_KEY;
     public string APP_ID;
+    public bool IS_SANDBOX;
 
     void Start()
     {
-        AppsflyerModule afm = new AppsflyerModule(DEV_KEY, APP_ID, this);
+        AppsflyerModule afm = new AppsflyerModule(DEV_KEY, APP_ID, this, IS_SANDBOX);
+        afm.SetCustomerUserId("testTEST12345");
         afm.Start();
+        afm.SetCustomerUserId("testTESTNOPE");
+        afm.Stop();
 
         // set event name
         string event_name = "af_purchase";
