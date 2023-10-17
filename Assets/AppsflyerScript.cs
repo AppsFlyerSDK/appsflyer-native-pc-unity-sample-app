@@ -15,8 +15,6 @@ public class AppsflyerScript : MonoBehaviour
         AppsflyerModule afm = new AppsflyerModule(DEV_KEY, APP_ID, this, IS_SANDBOX);
         afm.SetCustomerUserId("testTEST12345");
         afm.Start();
-        afm.SetCustomerUserId("testTESTNOPE");
-        afm.Stop();
 
         // set event name
         string event_name = "af_purchase";
@@ -25,9 +23,13 @@ public class AppsflyerScript : MonoBehaviour
         event_parameters.Add("af_currency", "USD");
         event_parameters.Add("af_price", 6.66);
         event_parameters.Add("af_revenue", 12.12);
+        event_parameters.Add("goodsName", "新人邀约购物日");
         // send logEvent request
         afm.LogEvent(event_name, event_parameters);
 
+        // afm.SetCustomerUserId("test-willnotwork");
+        // afm.Stop();
+        
         // the creation date in this example is "2023-03-23T08:30:00+00:00"
         bool newerDate = afm.IsInstallOlderThanDate("2023-06-13T10:00:00+00:00");
         bool olderDate = afm.IsInstallOlderThanDate("2023-02-11T10:00:00+00:00");
