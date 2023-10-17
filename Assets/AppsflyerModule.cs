@@ -291,7 +291,7 @@ public class AppsflyerModule
     // generate hmac auth for post requests
     private string HmacSha256Digest(string message, string secret)
     {
-        ASCIIEncoding encoding = new ASCIIEncoding();
+        UTF8Encoding encoding = new UTF8Encoding();
         byte[] keyBytes = encoding.GetBytes(secret);
         byte[] messageBytes = encoding.GetBytes(message);
         System.Security.Cryptography.HMACSHA256 cryptographer =
