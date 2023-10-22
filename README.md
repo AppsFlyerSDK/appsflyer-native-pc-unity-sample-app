@@ -47,8 +47,8 @@ AppsflyerModule afm = new AppsflyerModule(<< DEV_KEY >>, << APP_ID >>, this, tru
 
 - `DEV_KEY`: Get from the marketer or [AppsFlyer HQ](https://support.appsflyer.com/hc/en-us/articles/211719806-App-settings-#general-app-settings).
 - `APP_ID`: The app id on Appsflyer HQ
-- `MonoBehaviour mono`:
-- `bool isSandbox`: Whether to activate sandbox mode. False by default.
+- `MonoBehaviour mono`: the parent MonoBehaviour.
+- `bool isSandbox`: Whether to activate sandbox mode. False by default. This option is for debugging. With the sandbox mode, AppsFlyer dashboard does not show the data. 
 
 ### Start
 
