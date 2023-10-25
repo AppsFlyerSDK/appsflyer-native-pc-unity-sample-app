@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baec666e5d68e6e449e5490b387c3be7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DEV_KEY: bFzaVu2iecN77po5mWMJuL
-  APP_ID: 12341234
+  DEV_KEY: 
+  APP_ID: 
   IS_SANDBOX: 0
 --- !u!4 &425522096
 Transform:
