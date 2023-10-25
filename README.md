@@ -108,9 +108,9 @@ void LogEvent(
 
 **Arguments**:
 
-- `string event_name`-
+- `string event_name`: the name of the event.
 - `Dictionary<string, object> event_parameters`: dictionary object which contains the [predefined event parameters](https://dev.appsflyer.com/hc/docs/ctv-log-event-event-parameters).
-- `Dictionary<string, object> event_custom_parameters` (non-mandatory): dictionary object which contains the any custom event parameters.
+- `Dictionary<string, object> event_custom_parameters`: (non-mandatory): dictionary object which contains the any custom event parameters.
 
 **Usage**:
 
