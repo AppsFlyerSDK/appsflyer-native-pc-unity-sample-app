@@ -17,6 +17,8 @@ AppsFlyer empowers gaming marketers to make better decisions by providing powerf
 Game attribution requires the game to integrate the AppsFlyer SDK that records first opens, consecutive sessions, and in-app events. For example, purchase events.
 We recommend you use this sample app as a reference for integrating the AppsFlyer SDK into your Unity Native PC game.
 
+**Note**: The sample code that follows is supported in a both Windows & Mac environment.
+
 <hr/>
 
 ## AppsflyerModule - Interface
