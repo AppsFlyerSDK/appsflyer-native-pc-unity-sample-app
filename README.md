@@ -122,7 +122,6 @@ string event_name = "af_purchase";
 // set event values
 Dictionary<string, object> event_parameters = new Dictionary<string, object>();
 event_parameters.Add("af_currency", "USD");
-event_parameters.Add("af_price", 6.66);
 event_parameters.Add("af_revenue", 12.12);
 // send logEvent request
 afm.LogEvent(event_name, event_parameters);
