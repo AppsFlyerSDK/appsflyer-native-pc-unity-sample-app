@@ -62,6 +62,11 @@ This method sends first open/session requests to AppsFlyer.
 void Start(bool skipFirst = false)
 ```
 
+**Arguments**
+
+- `bool skipFirst`: Determines whether or not to skip first open events and send session events. The value is false by default. If true , first open events are skipped and session events are sent. [See example](#skipFirstExample)
+
+
 **Usage**:
 
 ```c#
@@ -142,7 +147,13 @@ This method receives a date string and returns true if the game folder creation 
 bool IsInstallOlderThanDate(string datestring)
 ```
 
+**Arguments**:
+
+- `string datestring`: Date string in `yyyy-mm-ddThh:mm:ss+hh:mm` format.
+
+
 **Usage**:
+<div id="skipFirstExample"></div>
 
 ```c#
 // the creation date in this example is "2023-03-23T08:30:00+00:00"
@@ -171,6 +182,11 @@ The customer ID is available in raw data reports and in the postbacks sent via A
 ```c#
 void SetCustomerUserId(string cuid)
 ```
+
+**Arguments**:
+
+- `string cuid`: Custom user id.
+
 
 **Usage**:
 
