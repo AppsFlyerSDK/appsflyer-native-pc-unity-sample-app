@@ -13,9 +13,10 @@ using System.IO;
 
 public class AppsflyerModule
 {
-    private bool isSandbox { get; }
     private string devkey { get; }
     private string appid { get; }
+    private bool isSandbox { get; }
+    private List<string> sharingFilter { get; set; }
     private int af_counter { get; set; }
     private string af_device_id { get; }
     private string cuid { get; set; }
@@ -28,6 +29,7 @@ public class AppsflyerModule
         this.devkey = devkey;
         this.appid = appid;
         this.mono = mono;
+        this.sharingFilter = null;
         this.isStopped = true;
 
         this.af_counter = PlayerPrefs.GetInt("af_counter");
@@ -63,7 +65,8 @@ public class AppsflyerModule
             device_ids = deviceids,
             request_id = GenerateGuid(),
             limit_ad_tracking = false,
-            customer_user_id = cuid
+            customer_user_id = cuid,
+            sharing_filter = this.sharingFilter
 
         };
         return req;
@@ -174,6 +177,16 @@ public class AppsflyerModule
         this.cuid = cuid;
     }
 
+    public void SetSharingFilterForPartners(List<string> sharingFilter) {
+        this.sharingFilter = sharingFilter;
+        Debug.Log("Sharing filter for partners has been set");
+    }
+
+    public void SetSharingFilter(List<string> sharingFilter)
+    {
+        this.sharingFilter = sharingFilter;
+    }
+
     // send post request with Unity HTTP Client
     private IEnumerator SendUnityPostReq(RequestData req, AppsflyerRequestType REQ_TYPE)
     {
@@ -183,7 +196,7 @@ public class AppsflyerModule
             Newtonsoft.Json.Formatting.None,
             new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }
         );
-        // Debug.Log(json);
+        Debug.Log(json);
 
         // create auth token
         string auth = HmacSha256Digest(json, devkey);
@@ -329,6 +342,7 @@ class RequestData
     public string request_id;
     public bool limit_ad_tracking;
     public string customer_user_id;
+    public List<string> sharing_filter;
     public string event_name;
     public Dictionary<string, object> event_parameters;
     public Dictionary<string, object> event_custom_parameters;

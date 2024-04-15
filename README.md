@@ -171,7 +171,6 @@ bool IsInstallOlderThanDate = afm.IsInstallOlderThanDate("2023-02-11T10:00:00+00
 afm.Start(!IsInstallOlderThanDate);
 ```
 
-
 ### SetCustomerUserId
 
 This method sets a customer ID that enables you to cross-reference your unique ID with the AppsFlyer unique ID and other device IDs. Note: You can only use this method before calling `Start()`.
@@ -187,12 +186,38 @@ void SetCustomerUserId(string cuid)
 
 - `string cuid`: Custom user id.
 
-
 **Usage**:
 
 ```c#
 AppsflyerSteamModule afm = new AppsflyerSteamModule(DEV_KEY, STEAM_APP_ID, this);
 afm.SetCustomerUserId("15667737-366d-4994-ac8b-653fe6b2be4a");
+afm.Start();
+```
+
+### SetSharingFilterForPartners
+
+This method lets you configure which partners should the SDK exclude from data-sharing. Partners that are excluded with this method will not receive data through postbacks, APIs, raw data reports, or any other means.
+
+**Method signature**
+
+```c#
+public void SetSharingFilterForPartners(List<string> sharingFilter)
+```
+
+**Arguments**:
+
+- `List<string> sharingFilter`: a list of partners to filter. For example:  `new List<string>() {"partner1_int", "partner2_int"};`
+
+**Usage**:
+
+```c#
+AppsflyerModule afm = new AppsflyerModule(DEV_KEY, APP_ID, this);
+
+// set the sharing filter
+var sharingFilter = new List<string>() {"partner1_int", "partner2_int"};
+afm.SetSharingFilterForPartners(sharingFilter);
+
+// start the SDK (send firstopen/session request)
 afm.Start();
 ```
 
