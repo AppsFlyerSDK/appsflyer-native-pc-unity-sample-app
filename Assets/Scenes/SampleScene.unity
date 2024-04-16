@@ -156,8 +156,6 @@ MonoBehaviour:
   APP_ID: 
   IS_SANDBOX: 0
   SHARING_FILTER:
-  - partner1_int
-  - partner2_int
 --- !u!4 &425522096
 Transform:
   m_ObjectHideFlags: 0
