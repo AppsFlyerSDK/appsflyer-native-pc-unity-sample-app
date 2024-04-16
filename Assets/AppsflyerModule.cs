@@ -182,11 +182,6 @@ public class AppsflyerModule
         Debug.Log("Sharing filter for partners has been set");
     }
 
-    public void SetSharingFilter(List<string> sharingFilter)
-    {
-        this.sharingFilter = sharingFilter;
-    }
-
     // send post request with Unity HTTP Client
     private IEnumerator SendUnityPostReq(RequestData req, AppsflyerRequestType REQ_TYPE)
     {
