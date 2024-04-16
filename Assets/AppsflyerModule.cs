@@ -191,7 +191,7 @@ public class AppsflyerModule
             Newtonsoft.Json.Formatting.None,
             new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }
         );
-        Debug.Log(json);
+        // Debug.Log(json);
 
         // create auth token
         string auth = HmacSha256Digest(json, devkey);
